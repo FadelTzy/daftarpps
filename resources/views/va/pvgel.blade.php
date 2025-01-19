@@ -1,0 +1,498 @@
+@extends('ab')
+
+@section('css')
+    <!-- CSS Libraries -->
+    <!-- CSS Libraries -->
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('stisla/assets/modules/izitoast/css/iziToast.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('stisla/assets/modules/datatables/datatables.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('stisla/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('stisla/assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('stisla/assets/modules/prism/prism.css') }}">
+@endsection
+
+@section('title')
+    Periode Pembayaran
+@endsection
+@section('content')
+    <section class="section">
+        <div class="section-header">
+            <h1> Data Gelombang Pembayaran Periode : {{ $aktif->nama_semester }}
+            </h1>
+        </div>
+        <div class="section-body">
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <div class="float-left">
+                                <h4>Data Gelombang Pembayaran Periode : {{ $aktif->nama_semester }}</h4>
+
+                            </div>
+                            <div class="float-right">
+                                <div class="section-header-button">
+                                    <button data-toggle="modal" data-target="#exampleModal" href="features-post-create.html"
+                                        class="btn btn-primary">Tambah</button>
+                                </div>
+                            </div>
+
+                            <div class="clearfix mb-3"></div>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="dt">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center pt-2">Gelombang</th>
+                                            <th>Semester </th>
+                                            <th>Total Tagihan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Data Semester</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <form id="dataperiode" method="POST">
+                            <div class="card-body">
+
+                                @csrf
+                                <div class="form-group">
+
+                                    <label for="Nama">Periode Semester</label>
+                                    <div class="input-group">
+
+                                        <input type="text" name="tahun" class="form-control"
+                                            placeholder="contoh : 2024/2025" class="form-control phone-number">
+                                    </div>
+
+                                    {{-- <br>
+                                    <label for="Nama">Semester Berjalan</label>
+                                    <div class="input-group">
+
+                                        <input type="text" name="semester" class="form-control" placeholder="contoh : 1"
+                                            class="form-control phone-number">
+                                    </div>
+
+                                    <br>
+
+                                    <label for="Nama">Gelombang</label>
+                                    <div class="input-group">
+
+                                        <input type="number" name="gel" class="form-control" placeholder="Input "
+                                            class="form-control phone-number">
+                                    </div>
+
+                                    <br>
+                                    <label for="Nama">Status</label>
+
+                                    <div class="input-group">
+                                        <select name="status" class="form-control" id="">
+                                            <option value="1">Aktif</option>
+                                            <option value="2">Non</option>
+
+                                        </select>
+                                    </div>
+                                    <br> --}}
+
+
+                                </div>
+
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                    <button id="datasubmit" type="button" class="btn btn-success">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="up">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Data Gelombang</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="dataperiodeu" method="POST">
+                        <div class="card-body">
+
+                            @csrf
+                            <input type="hidden" name="id" id="idu">
+                            <div class="form-group">
+                                <label for="Nama">Nama</label>
+                                <div class="input-group">
+
+                                    <input type="text" id="namau" name="nama" placeholder="Input Nama"
+                                        class="form-control phone-number">
+                                </div>
+
+                                <br>
+                                <label for="Username">Username</label>
+                                <div class="input-group">
+
+                                    <input type="text" id="usernameu" name="username" placeholder="Input Username"
+                                        class="form-control phone-number">
+                                </div>
+                                <br>
+                                <label for="Nama">Alamat</label>
+
+                                <div class="input-group">
+
+                                    <input type="text" id="alamatu" name="alamat" placeholder="Input Alamat"
+                                        class="form-control phone-number">
+                                </div>
+                                <br>
+                                <label for="Nama">Email</label>
+
+                                <div class="input-group">
+
+                                    <input type="text" id="emailu" name="email" placeholder="Input Email"
+                                        class="form-control phone-number">
+                                </div>
+                                <br>
+                                <label for="Nama">Nomor</label>
+
+                                <div class="input-group">
+
+                                    <input type="text" id="nomoru" name="nomor" placeholder="Input No"
+                                        class="form-control phone-number">
+                                </div>
+                                <br>
+                                <label for="Nama">Password</label>
+
+                                <div class="input-group">
+
+                                    <input type="text" name="password" placeholder="Set Password Baru"
+                                        class="form-control phone-number">
+                                </div>
+                            </div>
+
+
+                            {{-- <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right "></label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                    </div>
+                                </div> --}}
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                    <button id="datasubmitu" type="button" class="btn btn-success">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+@push('js')
+    <!-- JS Libraies -->
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js ">
+    </script>
+    <script src="{{ asset('stisla/assets/modules/prism/prism.js') }}"></script>
+    <!-- Page Specific JS File -->
+    <!-- JS Libraies -->
+    <script src="{{ asset('stisla/assets/modules/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('stisla/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}">
+    </script>
+    <script src="{{ asset('stisla/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('stisla/assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('stisla/assets/js/page/bootstrap-modal.js') }}"></script>
+    <script src="{{ asset('stisla/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var url = window.location.origin;
+        jQuery(document).ready(function() {
+
+            tabel = $("#dt").DataTable({
+                columnDefs: [{
+                        targets: 0,
+                        width: "1%",
+                    },
+                    {
+                        targets: 1,
+                        width: "25%",
+
+                    },
+                    {
+                        orderable: false,
+                        targets: 2,
+                        width: "10%",
+
+                    },
+                    {
+                        orderable: false,
+
+                        targets: 3,
+                        width: "20%",
+
+                    },
+
+
+                ],
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('pvpembayaran.index') }}",
+                },
+                columns: [{
+                        nama: 'kodegel',
+                        data: 'kodegel'
+                    },
+                    {
+                        nama: 'nama_semester',
+                        data: 'nama_semester'
+                    },
+                    {
+                        nama: 'totalnya',
+                        data: 'totalnya'
+                    },
+                    {
+                        name: 'aksi',
+                        data: 'aksi',
+                    }
+                ],
+
+            });
+
+
+
+        });
+        $("#datasubmit").on('click', function() {
+            $("#dataperiode").trigger('submit');
+        });
+        $("#datasubmitu").on('click', function() {
+            $("#dataperiodeu").trigger('submit');
+        });
+        $("#dataperiode").on('submit', function(e) {
+            e.preventDefault();
+            var data = $(this).serialize();
+            $.LoadingOverlay("show");
+            $.ajax({
+                url: '{{ route('pvsemester.store') }}',
+                data: new FormData(this),
+                type: "POST",
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    $.LoadingOverlay("hide");
+
+                    // Tangani respon jika format tahun salah
+                    if (response.status == 'error' && response.data == 'Format tahun tidak valid.') {
+                        iziToast.warning({
+                            title: 'Warning!!',
+                            message: 'Format Tahun Salah',
+                            position: 'topRight'
+                        });
+                        return;
+                    }
+
+                    // Tangani respon validasi error
+                    if (response.status == 'error') {
+                        var errors = response.data;
+                        var errorList = '<div><ul>';
+                        Object.keys(errors).forEach(function(key) {
+                            errorList += '<li>' + errors[key][0] + '</li>';
+                        });
+                        errorList += '</ul></div>';
+
+                        iziToast.error({
+                            title: 'Error',
+                            message: errorList,
+                            position: 'topRight'
+                        });
+                    }
+                    // Tangani respon sukses
+                    else if (response.status == 'success') {
+                        iziToast.success({
+                            title: 'Success!',
+                            message: response.message,
+                            position: 'topRight'
+                        });
+                        $("#exampleModal").modal('hide');
+                        tabel.ajax.reload();
+                    }
+                    // Tangani respon gagal selain validasi
+                    else {
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Terjadi kesalahan yang tidak terduga',
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    $.LoadingOverlay("hide");
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Gagal menghubungi server. Silakan coba lagi.',
+                        position: 'topRight'
+                    });
+                }
+            });
+        });
+
+        $("#dataperiodeu").on('submit', function(id) {
+            id.preventDefault();
+            var data = $(this).serialize();
+            $.LoadingOverlay("show");
+            $.ajax({
+                url: '{{ route('bank.update') }}',
+                data: new FormData(this),
+                type: "POST",
+                contentType: false,
+                processData: false,
+                success: function(id) {
+                    console.log(id);
+                    $.LoadingOverlay("hide");
+                    if (id.status == 'error') {
+                        var data = id.data;
+                        var elem;
+                        var result = Object.keys(data).map((key) => [data[key]]);
+                        elem =
+                            '<div><ul>';
+
+                        result.forEach(function(data) {
+                            elem += '<li>' + data[0][0] + '</li>';
+                        });
+                        elem += '</ul></div>';
+                        iziToast.error({
+                            title: 'Error',
+                            message: elem,
+                            position: 'topRight'
+                        });
+
+                    } else {
+                        iziToast.success({
+                            title: 'Succes!',
+                            message: 'Data tersimpan',
+                            position: 'topRight'
+                        });
+                        $("#up").modal('hide');
+                        tabel.ajax.reload();
+
+                    }
+                }
+            })
+
+
+        });
+
+        function ubahStatus(id, status) {
+            // Konfirmasi sebelum mengubah status
+            let konfirmasi = confirm("Klik OK untuk mengubah status semester.");
+            if (konfirmasi) {
+                // Konfigurasi CSRF token
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                // Tampilkan loading overlay
+                $.LoadingOverlay("show");
+
+                // Kirim request AJAX
+                $.ajax({
+                    url: url + '/admin/pvsemester/aktivasi',
+                    type: "post",
+                    data: {
+                        id: id,
+                        status: status
+                    },
+                    success: function(response) {
+                        // Sembunyikan overlay setelah mendapatkan respon
+                        $.LoadingOverlay("hide");
+
+                        // Tangani respon sesuai dengan nilai yang diterima
+                        if (response === 'success') {
+                            iziToast.success({
+                                title: 'Sukses!',
+                                message: 'Status berhasil diperbarui.',
+                                position: 'topRight'
+                            });
+                            // Reload tabel untuk memperbarui data
+                            tabel.ajax.reload();
+                        } else if (response === 'not_found') {
+                            iziToast.warning({
+                                title: 'Peringatan!',
+                                message: 'Data tidak ditemukan.',
+                                position: 'topRight'
+                            });
+                        } else if (response === 'error') {
+                            iziToast.error({
+                                title: 'Kesalahan!',
+                                message: 'Terjadi kesalahan saat menyimpan data.',
+                                position: 'topRight'
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        $.LoadingOverlay("hide");
+
+                        // Tangani kesalahan di sisi server
+                        iziToast.error({
+                            title: 'Error!',
+                            message: 'Terjadi masalah pada server. Silakan coba lagi.',
+                            position: 'topRight'
+                        });
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        }
+
+
+
+        function staffupd(id) {
+            $('#up').modal('show');
+
+            $("#namau").val(id.name);
+            $("#alamatu").val(id.alamat);
+            $("#usernameu").val(id.username);
+
+            $("#emailu").val(id.email);
+            $("#nipu").val(id.kode);
+            $("#nomoru").val(id.no);
+
+            $("#idu").val(id.id);
+
+
+
+        }
+    </script>
+@endpush
