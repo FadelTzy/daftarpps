@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('kap')->unique();
             $table->string('nama_lengkap')->nullable();
             $table->string('no_hp')->nullable();
-            $table->string('jalur')->nullable();
-            $table->string('tempat_lahir')->nullable();
-            $table->string('kode_prodi')->nullable();
-            $table->string('prodi')->nullable();
-            $table->string('status_ujian')->nullable()->comment('lulus tidak lulus');
+            $table->string('nik')->nullable();
+            $table->string('tanggal_lahir')->nullable();
+            $table->string('email')->nullable();
+            $table->string('status')->nullable();
+            $table->string('status_bayar')->nullable()->comment('lunas tidak lunas');
 
             $table->timestamps();
         });
