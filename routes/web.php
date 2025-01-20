@@ -29,6 +29,22 @@ Route::get('/export/lunas', [VaTagihanController::class, 'exb'])->name('exb');
 // Route::post('/unm-calback', [VaTagihanController::class, 'callback']);
 Route::post('/service/cbunm', [VaTagihanController::class, 'pvcallback']);
 
+
+
+Route::get('/landing', function () {
+    return view('landing');
+});
+
+Route::get('/request-kap', function () {
+    return view('requestKAP');
+});
+
+
+Route::get('/registrasi-awal', function () {
+    return view('wizard1');
+});
+
+
 Route::group(['middleware' => ['auth']], function () {
     Route::prefix('admin')->group(function () {
         //new
