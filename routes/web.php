@@ -44,12 +44,24 @@ Route::get('/registrasi-awal', function () {
     return view('wizard1');
 });
 
+Route::get('/pengumuman', function () {
+    return view('pengumuman');
+});
+
+Route::get('/pengumuman2', function () {
+    return view('pengumuman2');
+});
+
+Route::get('/tagihan', function () {
+    return view('page_tagihan');
+});
+
 
 Route::group(['middleware' => ['auth']], function () {
     Route::prefix('admin')->group(function () {
         //new
         //pelaporan
-        // Route::get('/pv-pelaporan', [PvlaporanController::class, 'pelaporan'])->name('pvpembayaran.index');
+        //Route::get('/pv-pelaporan', [PvlaporanController::class, 'pelaporan'])->name('pvpembayaran.index');
 
 
         //pembayaran
