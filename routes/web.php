@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('admin')->group(function () {
         //new
         //pelaporan
-        Route::get('/pv-pelaporan', [PvlaporanController::class, 'pelaporan'])->name('pvpembayaran.index');
+        // Route::get('/pv-pelaporan', [PvlaporanController::class, 'pelaporan'])->name('pvpembayaran.index');
 
 
         //pembayaran

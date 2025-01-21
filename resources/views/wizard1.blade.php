@@ -317,11 +317,6 @@
                                 <p class="help-block">Pilih file gambar (format: JPG, PNG, GIF).</p>
                             </div>
                             <div class="form-group">
-                                <label for="uploadFotocopyIjazah">Fotocopy Ijazah terakhir</label>
-                                <input type="file" id="uploadFotocopyIjazah" name="uploadFotocopyIjazah" class="form-control" accept="image/*">
-                                <p class="help-block">Pilih file gambar (format: JPG, PNG, GIF).</p>
-                            </div>
-                            <div class="form-group">
                                 <label for="uploadFotocopyTranskrip">Fotocopy Transkrip</label>
                                 <input type="file" id="uploadFotocopyTranskrip" name="uploadFotocopyTranskrip" class="form-control" accept="image/*">
                                 <p class="help-block">Pilih file gambar (format: JPG, PNG, GIF).</p>
@@ -337,7 +332,7 @@
                                 <p class="help-block">Pilih file gambar (format: JPG, PNG, GIF).</p>
                             </div>
                             <div class="form-group">
-                                <label for="suratPernyataan">Surat Permytaan</label>
+                                <label for="suratPernyataan">Surat Pernyataan</label>
                                 <input type="file" id="suratPernyataan" name="suratPernyataan" class="form-control" accept="image/*">
                                 <p class="help-block">Pilih file gambar (format: JPG, PNG, GIF).</p>
                             </div>
